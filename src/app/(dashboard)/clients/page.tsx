@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import {
   Plus,
   AlertCircle,
@@ -53,6 +54,7 @@ const statusColor: Record<Company['status'], string> = {
 /* ---------- page ---------- */
 
 export default function ClientsPage() {
+  const router = useRouter();
   const [companies, setCompanies] = useState<Company[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
@@ -158,7 +160,8 @@ export default function ClientsPage() {
               {companies.map((c) => (
                 <tr
                   key={c.id}
-                  className="bg-gray-950 hover:bg-gray-900/70 transition"
+                  onClick={() => router.push(`/clients/${c.id}`)}
+                  className="bg-gray-950 hover:bg-gray-900/70 transition cursor-pointer"
                 >
                   <td className="px-5 py-4">
                     <Link
